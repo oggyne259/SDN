@@ -1,14 +1,32 @@
-<div class="container-fluid mt-5 px-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Quản lý Nước Hoa</h2>
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPerfumeModal">
-      + Thêm Sản Phẩm
-    </button>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div>
+    <h2 class="mb-1">Quản lý Nước Hoa</h2>
+    <p class="text-muted mb-0">Theo dõi và cập nhật danh mục sản phẩm trong cửa hàng.</p>
   </div>
+  <button class="btn btn-admin" data-bs-toggle="modal" data-bs-target="#addPerfumeModal">
+    <i class="bi bi-plus-circle me-1"></i> Thêm sản phẩm
+  </button>
+</div>
 
-  <div class="table-responsive shadow-sm">
-    <table class="table table-hover table-bordered bg-white align-middle text-center">
-      <thead class="table-dark">
+<div class="summary-grid mb-4">
+  <div class="summary-card p-3">
+    <p class="text-muted mb-1">Tổng số sản phẩm</p>
+    <h4 class="mb-0"><%= perfumes ? perfumes.length : 0 %></h4>
+  </div>
+  <div class="summary-card p-3">
+    <p class="text-muted mb-1">Thương hiệu đang dùng</p>
+    <h4 class="mb-0"><%= brands ? brands.length : 0 %></h4>
+  </div>
+  <div class="summary-card p-3">
+    <p class="text-muted mb-1">Trạng thái</p>
+    <h6 class="mb-0">Đã đồng bộ giao diện mới</h6>
+  </div>
+</div>
+
+<div class="table-wrap p-2">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle text-center">
+      <thead>
         <tr>
           <th>Hình ảnh</th>
           <th>Tên sản phẩm</th>
@@ -23,41 +41,35 @@
         <% if (perfumes && perfumes.length > 0) { %>
           <% perfumes.forEach(function(perfume) { %>
             <tr>
-              <td><img src="<%= perfume.uri %>" alt="IMG" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;"></td>
-              <td class="fw-bold"><%= perfume.perfumeName %></td>
+              <td><img src="<%= perfume.uri %>" alt="IMG" class="item-thumb"></td>
+              <td class="fw-semibold"><%= perfume.perfumeName %></td>
               <td><%= perfume.brand ? perfume.brand.brandName : 'Lỗi Data' %></td>
-              <td class="text-success fw-bold"><%= perfume.price %></td>
-              <td>
-                <% if(perfume.concentration === 'Extrait') { %>
-                  <span class="badge bg-danger"><%= perfume.concentration %></span>
-                <% } else { %>
-                  <span class="badge bg-secondary"><%= perfume.concentration %></span>
-                <% } %>
-              </td>
+              <td class="fw-semibold text-warning"><%= perfume.price %></td>
+              <td><span class="badge badge-soft"><%= perfume.concentration %></span></td>
               <td><%= perfume.targetAudience %></td>
               <td>
-                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPerfumeModal<%= perfume._id %>">Sửa</button>
+                <button class="btn btn-sm btn-outline-admin me-1" data-bs-toggle="modal" data-bs-target="#editPerfumeModal<%= perfume._id %>">Sửa</button>
                 <form action="/admin/perfumes/delete/<%= perfume._id %>" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nước hoa này?');">
-                  <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
                 </form>
               </td>
             </tr>
 
             <div class="modal fade" id="editPerfumeModal<%= perfume._id %>" tabindex="-1">
-              <div class="modal-dialog modal-lg">
+              <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
-                  <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Sửa Nước Hoa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  <div class="modal-header border-0">
+                    <h5 class="modal-title">Sửa thông tin nước hoa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                   </div>
                   <form action="/admin/perfumes/edit/<%= perfume._id %>" method="POST">
-                    <div class="modal-body text-start">
-                      <div class="row">
-                        <div class="col-md-6 mb-3">
+                    <div class="modal-body">
+                      <div class="row g-3">
+                        <div class="col-md-6">
                           <label>Tên Nước Hoa</label>
                           <input type="text" name="perfumeName" class="form-control" value="<%= perfume.perfumeName %>" required>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6">
                           <label>Thương Hiệu</label>
                           <select name="brand" class="form-select" required>
                             <% brands.forEach(function(b) { %>
@@ -65,19 +77,19 @@
                             <% }); %>
                           </select>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6">
                           <label>Link Hình Ảnh (URI)</label>
                           <input type="text" name="uri" class="form-control" value="<%= perfume.uri %>" required>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3">
                           <label>Giá tiền ($)</label>
                           <input type="number" name="price" class="form-control" value="<%= perfume.price %>" required>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-3">
                           <label>Thể tích (ml)</label>
                           <input type="number" name="volume" class="form-control" value="<%= perfume.volume %>" required>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6">
                           <label>Nồng độ</label>
                           <select name="concentration" class="form-select" required>
                             <option value="Extrait" <%= perfume.concentration === 'Extrait' ? 'selected' : '' %>>Extrait</option>
@@ -86,32 +98,31 @@
                             <option value="EDC" <%= perfume.concentration === 'EDC' ? 'selected' : '' %>>EDC</option>
                           </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                          <label>Đối tượng (Target Audience)</label>
+                        <div class="col-md-6">
+                          <label>Đối tượng</label>
                           <select name="targetAudience" class="form-select" required>
                             <option value="male" <%= perfume.targetAudience === 'male' ? 'selected' : '' %>>Male</option>
                             <option value="female" <%= perfume.targetAudience === 'female' ? 'selected' : '' %>>Female</option>
                             <option value="unisex" <%= perfume.targetAudience === 'unisex' ? 'selected' : '' %>>Unisex</option>
                           </select>
                         </div>
-                        <div class="col-12 mb-3">
-                          <label>Thành phần (Ingredients)</label>
+                        <div class="col-12">
+                          <label>Thành phần</label>
                           <input type="text" name="ingredients" class="form-control" value="<%= perfume.ingredients %>" required>
                         </div>
-                        <div class="col-12 mb-3">
-                          <label>Mô tả (Description)</label>
+                        <div class="col-12">
+                          <label>Mô tả</label>
                           <textarea name="description" class="form-control" rows="3" required><%= perfume.description %></textarea>
                         </div>
                       </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+                    <div class="modal-footer border-0">
+                      <button type="submit" class="btn btn-admin">Lưu thay đổi</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-
           <% }); %>
         <% } else { %>
           <tr><td colspan="7" class="text-center text-muted py-4">Chưa có sản phẩm nào.</td></tr>
@@ -122,20 +133,20 @@
 </div>
 
 <div class="modal fade" id="addPerfumeModal" tabindex="-1">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title">Thêm Sản Phẩm Mới</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Thêm sản phẩm mới</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form action="/admin/perfumes" method="POST">
-        <div class="modal-body text-start">
-          <div class="row">
-            <div class="col-md-6 mb-3">
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
               <label>Tên Nước Hoa</label>
               <input type="text" name="perfumeName" class="form-control" required>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6">
               <label>Thương Hiệu</label>
               <select name="brand" class="form-select" required>
                 <% brands.forEach(function(b) { %>
@@ -143,19 +154,19 @@
                 <% }); %>
               </select>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6">
               <label>Link Hình Ảnh (URI)</label>
               <input type="text" name="uri" class="form-control" required>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3">
               <label>Giá tiền ($)</label>
               <input type="number" name="price" class="form-control" required>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-3">
               <label>Thể tích (ml)</label>
               <input type="number" name="volume" class="form-control" required>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6">
               <label>Nồng độ</label>
               <select name="concentration" class="form-select" required>
                 <option value="Extrait">Extrait</option>
@@ -164,28 +175,28 @@
                 <option value="EDC">EDC</option>
               </select>
             </div>
-            <div class="col-md-6 mb-3">
-              <label>Đối tượng (Target Audience)</label>
+            <div class="col-md-6">
+              <label>Đối tượng</label>
               <select name="targetAudience" class="form-select" required>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="unisex">Unisex</option>
               </select>
             </div>
-            <div class="col-12 mb-3">
-              <label>Thành phần (Ingredients)</label>
+            <div class="col-12">
+              <label>Thành phần</label>
               <input type="text" name="ingredients" class="form-control" required>
             </div>
-            <div class="col-12 mb-3">
-              <label>Mô tả (Description)</label>
+            <div class="col-12">
+              <label>Mô tả</label>
               <textarea name="description" class="form-control" rows="3" required></textarea>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Thêm Mới</button>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-admin">Thêm mới</button>
         </div>
       </form>
     </div>
   </div>
-</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                           

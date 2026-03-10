@@ -1,23 +1,42 @@
-<div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Quản lý Thương hiệu (Brands)</h2>
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addBrandModal">
-      + Thêm Thương Hiệu
-    </button>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+  <div>
+    <h2 class="mb-1">Quản lý Thương hiệu</h2>
+    <p class="text-muted mb-0">Tạo, chỉnh sửa và quản lý các thương hiệu nước hoa.</p>
   </div>
-  <% if (error) { %>
-    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
-      <strong>Lỗi xóa dữ liệu:</strong> <%= error %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% } %>
-  <div class="table-responsive shadow-sm">
-    <table class="table table-hover table-bordered bg-white align-middle">
-      <thead class="table-dark">
+  <button class="btn btn-admin" data-bs-toggle="modal" data-bs-target="#addBrandModal">
+    <i class="bi bi-plus-circle me-1"></i> Thêm thương hiệu
+  </button>
+</div>
+
+
+<div class="summary-grid mb-4">
+  <div class="summary-card p-3">
+    <p class="text-muted mb-1">Tổng thương hiệu</p>
+    <h4 class="mb-0"><%= brands ? brands.length : 0 %></h4>
+  </div>
+  <div class="summary-card p-3">
+    <p class="text-muted mb-1">Quản lý</p>
+    <h6 class="mb-0">Thêm / Sửa / Xóa nhanh</h6>
+  </div>
+  <div class="summary-card p-3">
+    <p class="text-muted mb-1">Lưu ý</p>
+    <h6 class="mb-0">Không xóa brand đang được sử dụng</h6>
+  </div>
+</div>
+<% if (error) { %>
+  <div class="alert alert-danger border-0 mb-4">
+    <strong>Lỗi:</strong> <%= error %>
+  </div>
+<% } %>
+
+<div class="table-wrap p-2">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
         <tr>
           <th width="10%">STT</th>
-          <th width="60%">Tên Thương Hiệu</th>
-          <th width="30%" class="text-center">Thao tác</th>
+          <th>Tên thương hiệu</th>
+          <th width="25%" class="text-center">Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -25,12 +44,11 @@
           <% brands.forEach(function(brand, index) { %>
             <tr>
               <td><%= index + 1 %></td>
-              <td class="fw-bold"><%= brand.brandName %></td>
+              <td class="fw-semibold"><%= brand.brandName %></td>
               <td class="text-center">
-                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editBrandModal<%= brand._id %>">Sửa</button>
-                
+                <button class="btn btn-sm btn-outline-admin me-1" data-bs-toggle="modal" data-bs-target="#editBrandModal<%= brand._id %>">Sửa</button>
                 <form action="/brands/delete/<%= brand._id %>" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa thương hiệu này không?');">
-                  <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
                 </form>
               </td>
             </tr>
@@ -38,25 +56,22 @@
             <div class="modal fade" id="editBrandModal<%= brand._id %>" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Sửa Thương Hiệu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  <div class="modal-header border-0">
+                    <h5 class="modal-title">Sửa thương hiệu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                   </div>
                   <form action="/brands/edit/<%= brand._id %>" method="POST">
-                    <div class="modal-body text-start">
-                      <div class="mb-3">
-                        <label>Tên Thương Hiệu</label>
-                        <input type="text" name="brandName" class="form-control" value="<%= brand.brandName %>" required>
-                      </div>
+                    <div class="modal-body">
+                      <label>Tên thương hiệu</label>
+                      <input type="text" name="brandName" class="form-control" value="<%= brand.brandName %>" required>
                     </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary">Lưu Thay Đổi</button>
+                    <div class="modal-footer border-0">
+                      <button type="submit" class="btn btn-admin">Lưu thay đổi</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-
           <% }); %>
         <% } else { %>
           <tr><td colspan="3" class="text-center text-muted py-4">Chưa có thương hiệu nào.</td></tr>
@@ -69,21 +84,19 @@
 <div class="modal fade" id="addBrandModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title">Thêm Thương Hiệu Mới</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Thêm thương hiệu mới</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form action="/brands" method="POST">
         <div class="modal-body">
-          <div class="mb-3">
-            <label>Tên Thương Hiệu</label>
-            <input type="text" name="brandName" class="form-control" required placeholder="Nhập tên thương hiệu...">
-          </div>
+          <label>Tên thương hiệu</label>
+          <input type="text" name="brandName" class="form-control" required placeholder="Nhập tên thương hiệu...">
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Thêm Mới</button>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-admin">Thêm mới</button>
         </div>
       </form>
     </div>
   </div>
-</div>
+</div>                                                                                                                                                      
