@@ -1,61 +1,45 @@
-<div class="container mt-5">
+<div class="container section-block">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow-sm border-0">
-        <div class="card-header bg-primary text-white text-center py-3">
-          <h4 class="mb-0">Đăng Ký Tài Khoản</h4>
-        </div>
-        <div class="card-body p-4">
-          
-          <% if (error) { %>
-            <div class="alert alert-danger"><%= error %></div>
-          <% } %>
-          <% if (success) { %>
-            <div class="alert alert-success"><%= success %></div>
-          <% } %>
+    <div class="col-lg-7">
+      <div class="card p-4 p-md-5">
+        <h3 class="text-center mb-4">Tạo tài khoản mới</h3>
 
-          <form action="/auth/register" method="POST">
-            <div class="mb-3">
-              <label class="form-label fw-bold">Địa chỉ Email <span class="text-danger">*</span></label>
-              <input type="email" name="email" class="form-control" placeholder="ví dụ: user@gmail.com" required>
+        <% if (error) { %><div class="alert alert-danger"><%= error %></div><% } %>
+        <% if (success) { %><div class="alert alert-success"><%= success %></div><% } %>
+
+        <form action="/auth/register" method="POST">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
             </div>
-
-            <div class="mb-3">
-              <label class="form-label fw-bold">Mật khẩu <span class="text-danger">*</span></label>
-              <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+            <div class="col-12">
+              <label class="form-label">Mật khẩu</label>
+              <input type="password" name="password" class="form-control" required>
             </div>
-
-            <div class="mb-3">
-              <label class="form-label fw-bold">Họ và Tên <span class="text-danger">*</span></label>
-              <input type="text" name="name" class="form-control" placeholder="Nhập họ và tên của bạn" required>
+            <div class="col-12">
+              <label class="form-label">Họ và tên</label>
+              <input type="text" name="name" class="form-control" required>
             </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Năm sinh (YOB) <span class="text-danger">*</span></label>
-                <input type="number" name="YOB" class="form-control" placeholder="vd: 1999" min="1900" max="2024" required>
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Giới tính <span class="text-danger">*</span></label>
-                <select name="gender" class="form-select" required>
-                  <option value="true">Nam</option>
-                  <option value="false">Nữ</option>
-                </select>
-              </div>
+            <div class="col-md-6">
+              <label class="form-label">Năm sinh</label>
+              <input type="number" name="YOB" class="form-control" min="1900" max="2024" required>
             </div>
-
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary btn-lg">Tạo Tài Khoản</button>
+            <div class="col-md-6">
+              <label class="form-label">Giới tính</label>
+              <select name="gender" class="form-select" required>
+                <option value="true">Nam</option>
+                <option value="false">Nữ</option>
+              </select>
             </div>
-          </form>
-
-        </div>
-        <div class="card-footer bg-light text-center py-3">
-          <span>Đã có tài khoản? </span>
-          <a href="/auth/login" class="text-decoration-none fw-bold text-primary">Đăng nhập ngay</a>
-        </div>
+          </div>
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-brand">Đăng ký</button>
+          </div>
+        </form>
+        
+        <p class="text-center mt-4 mb-0 text-muted">Đã có tài khoản? <a href="/auth/login">Đăng nhập</a></p>
       </div>
     </div>
   </div>
-</div>
+</div>                                                        
