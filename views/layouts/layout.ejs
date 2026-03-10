@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- locals.title || 'Perfume Shop' %></title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lux-bg: #0F0F0F;          /* Background Black */
+            --lux-surface: #1E1E1E;     /* Secondary BG Dark Gray */
+            --lux-primary: #D4AF37;     /* Primary Gold */
+            --lux-text: #FFFFFF;        /* Text White */
+            --lux-text-muted: #B0B0B0;  /* Secondary Text Light Gray */
+            --lux-border: #333333;
+        }
+
+        /* Áp dụng Background và Font chữ tổng thể */
+        body {
+            background-color: var(--lux-bg) !important;
+            color: var(--lux-text) !important;
+            font-family: 'Montserrat', sans-serif; /* Font đọc dễ cho văn bản thường */
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand, .card-title {
+            font-family: 'Playfair Display', serif; /* Font sang trọng cho Tiêu đề */
+            letter-spacing: 1px;
+        }
+
+        /* Ghi đè Thanh Menu (Navbar) */
+        .navbar {
+            background-color: var(--lux-bg) !important;
+            border-bottom: 1px solid var(--lux-border);
+        }
+        .navbar-brand {
+            color: var(--lux-primary) !important;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* Ghi đè Card và các khối nền sáng (bg-light) thành Dark Gray */
+        .card, .bg-light, .modal-content, .alert {
+            background-color: var(--lux-surface) !important;
+            color: var(--lux-text) !important;
+            border: 1px solid var(--lux-border) !important;
+        }
+        .card-footer, .card-header {
+            background-color: transparent !important;
+            border-color: var(--lux-border) !important;
+        }
+
+        /* Chuyển các chữ tối màu thành Trắng/Xám */
+        .text-dark { color: var(--lux-text) !important; }
+        .text-muted { color: var(--lux-text-muted) !important; }
+
+        /* Nút bấm Primary (Chuyển từ Xanh dương sang Gold) */
+        .btn-primary {
+            background-color: var(--lux-primary) !important;
+            border-color: var(--lux-primary) !important;
+            color: #000 !important; /* Chữ đen trên nền vàng */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 0; /* Bo góc vuông góc cạnh sang trọng hơn */
+        }
+        .btn-primary:hover {
+            background-color: #B8962D !important;
+            border-color: #B8962D !important;
+            color: #000 !important;
+        }
+
+        /* Nút bấm Outline (Viền Gold) */
+        .btn-outline-primary {
+            color: var(--lux-primary) !important;
+            border-color: var(--lux-primary) !important;
+            border-radius: 0;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--lux-primary) !important;
+            color: #000 !important;
+        }
+
+        /* Forms và Inputs */
+        .form-control, .form-select {
+            background-color: var(--lux-bg) !important;
+            color: var(--lux-text) !important;
+            border: 1px solid var(--lux-border) !important;
+            border-radius: 0;
+        }
+        .form-control::placeholder {
+            color: var(--lux-text-muted) !important;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--lux-primary) !important;
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25) !important;
+        }
+
+        /* Phân trang (Pagination) */
+        .pagination .page-link {
+            background-color: var(--lux-surface);
+            border-color: var(--lux-border);
+            color: var(--lux-text);
+            border-radius: 0;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--lux-primary);
+            border-color: var(--lux-primary);
+            color: #000;
+        }
+        .pagination .page-link:hover {
+            background-color: var(--lux-border);
+            color: var(--lux-primary);
+        }
+
+        /* Badge Nồng độ Extrait nổi bật với màu Gold */
+        .badge.bg-danger {
+            background-color: var(--lux-primary) !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+        /* --- HIỆU ỨNG CARD LUXURY --- */
+        .perfume-card {
+            background-color: var(--lux-surface) !important;
+            border: none !important;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        .perfume-card:hover {
+            transform: translateY(-8px); /* Nổi lên nhẹ */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.1) !important; /* Đổ bóng + Viền sáng rực rỡ nhẹ */
+        }
+        
+        /* Hiệu ứng Zoom ảnh */
+        .perfume-card .img-wrapper {
+            overflow: hidden;
+            height: 320px; /* Tăng chiều cao ảnh cho thanh thoát */
+            position: relative;
+        }
+        .perfume-card img {
+            transition: transform 0.7s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .perfume-card:hover img {
+            transform: scale(1.08); /* Zoom nhẹ khi hover */
+        }
+
+        /* Typography cho Card */
+        .brand-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--lux-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .perfume-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--lux-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .price-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: var(--lux-text);
+            letter-spacing: 1px;
+        }
+        
+        /* Badge tối giản */
+        .badge-lux {
+            background: transparent;
+            border: 1px solid var(--lux-border);
+            color: var(--lux-text-muted);
+            font-weight: 400;
+            border-radius: 0;
+            padding: 0.35em 0.65em;
+            letter-spacing: 1px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">PERFUME SHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="/">Trang Chủ</a>
+                    </li> -->
+                    
+                    <% if (isAuthenticated) { %>
+                        <% if (isAdmin) { %>
+                            <li class="nav-item">
+                                <a class="nav-link text-info fw-bold" href="/admin/perfumes">Quản lý Shop</a>
+                            </li>
+                        <% } %>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="/members/profile">Hồ sơ cá nhân</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger fw-bold" href="/auth/logout">Đăng Xuất</a>
+                        </li>
+                            <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-outline-light btn-sm ms-2" href="/auth/login">Đăng nhập / Đăng ký</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <%- body %>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

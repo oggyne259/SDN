@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- locals.title || 'Admin Dashboard' %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --lux-bg: #0F0F0F;
+            --lux-surface: #1E1E1E;
+            --lux-primary: #D4AF37;
+            --lux-text: #FFFFFF;
+            --lux-text-muted: #B0B0B0;
+            --lux-border: #333333;
+        }
+
+        body {
+            background-color: var(--lux-bg) !important;
+            color: var(--lux-text) !important;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            color: var(--lux-primary);
+        }
+
+        /* --- Navbar (Thanh trên cùng) --- */
+        .navbar { background-color: var(--lux-bg) !important; border-bottom: 1px solid var(--lux-border); }
+        .navbar-brand { color: var(--lux-primary) !important; text-transform: uppercase; letter-spacing: 3px; }
+
+        /* --- Sidebar (Menu bên trái) --- */
+        .sidebar { background-color: var(--lux-surface) !important; min-height: calc(100vh - 56px); border-right: 1px solid var(--lux-border); }
+        .sidebar a { color: var(--lux-text-muted); transition: all 0.3s ease; }
+        .sidebar a:hover { color: var(--lux-primary); background-color: transparent; }
+        .sidebar a.active { color: #000 !important; background-color: var(--lux-primary) !important; font-weight: 600; }
+
+        /* --- Bảng dữ liệu (Tables) --- */
+        .table-responsive { border: 1px solid var(--lux-border); border-radius: 0; }
+        .table { color: var(--lux-text) !important; margin-bottom: 0; border-color: var(--lux-border) !important;}
+        
+        /* Ép các thẻ có class bg-white (mà bạn đang dùng) chuyển thành màu Xám đậm */
+        .bg-white, .table-light, .table-bordered { background-color: var(--lux-surface) !important; } 
+        
+        .table-dark th { 
+            background-color: #000 !important; 
+            color: var(--lux-primary) !important; 
+            border-color: var(--lux-border) !important; 
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .table td { 
+            background-color: var(--lux-surface) !important; 
+            border-color: var(--lux-border) !important; 
+            vertical-align: middle;
+            color: var(--lux-text) !important;
+        }
+        .table-hover tbody tr:hover td { background-color: #2A2A2A !important; }
+
+        /* --- Nút bấm (Buttons) góc cạnh --- */
+        .btn { border-radius: 0; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: 600; }
+        .btn-primary, .btn-success, .btn-info { 
+            background-color: var(--lux-primary) !important; 
+            border-color: var(--lux-primary) !important; 
+            color: #000 !important; 
+        }
+        .btn-primary:hover, .btn-success:hover, .btn-info:hover { 
+            background-color: #B8962D !important; 
+            border-color: #B8962D !important; 
+        }
+        .btn-danger { background-color: transparent !important; border-color: #8B0000 !important; color: #ff4d4d !important; }
+        .btn-danger:hover { background-color: #8B0000 !important; color: #fff !important; }
+
+        /* --- Modal (Hộp thoại Form Thêm/Sửa) --- */
+        .modal-content { 
+            background-color: var(--lux-surface) !important; 
+            color: var(--lux-text) !important; 
+            border: 1px solid var(--lux-primary) !important; 
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .modal-header { 
+            background-color: #000 !important; 
+            border-bottom: 1px solid var(--lux-border) !important; 
+        }
+        .modal-header .modal-title { color: var(--lux-primary) !important; }
+        .modal-footer { border-top: 1px solid var(--lux-border) !important; }
+        
+        /* Đổi màu dấu X tắt modal thành màu trắng */
+        .btn-close { filter: invert(1) grayscale(100%) brightness(200%); } 
+
+        /* --- Form / Input --- */
+        .form-control, .form-select { 
+            background-color: var(--lux-bg) !important; 
+            color: var(--lux-text) !important; 
+            border: 1px solid var(--lux-border) !important; 
+            border-radius: 0; 
+        }
+        .form-control:focus, .form-select:focus { 
+            border-color: var(--lux-primary) !important; 
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25) !important; 
+        }
+        label { color: var(--lux-text-muted) !important; font-size: 0.85rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 1px;}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="/">PERFUME SHOP</a>
+            <div class="ms-auto d-flex">
+                <a class="nav-link text-warning me-4" href="/members/profile" style="text-decoration: none;">Hồ sơ cá nhân</a>
+                <a class="nav-link text-danger fw-bold" href="/auth/logout" style="text-decoration: none;">Đăng Xuất</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar py-3 shadow">
+                <div class="position-sticky">
+                    <h6 class="text-white-50 px-3 mb-3 text-uppercase fw-bold">Menu Quản Trị</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-1">
+                            <a class="nav-link rounded mx-2 <%= locals.title && locals.title.includes('Nước Hoa') ? 'active' : '' %>" href="/admin/perfumes">
+                                <i class="bi bi-box-seam me-2"></i> QL Nước Hoa
+                            </a>
+                        </li>
+                        <li class="nav-item mb-1">
+                            <a class="nav-link rounded mx-2 <%= locals.title && locals.title.includes('Thương hiệu') ? 'active' : '' %>" href="/brands">
+                                <i class="bi bi-tags me-2"></i> QL Thương Hiệu
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4 mb-1">
+                            <h6 class="text-white-50 px-3 mb-2 text-uppercase fw-bold" style="font-size: 0.8rem;">Tài khoản</h6>
+                            <a class="nav-link rounded mx-2 <%= locals.title && locals.title.includes('Thành viên') ? 'active' : '' %>" href="/collectors">
+                                <i class="bi bi-people me-2"></i> QL User
+                            </a>
+                        </li>
+                        <li class="nav-item mt-4">
+                            <a class="nav-link rounded mx-2 text-info" href="/">
+                                <i class="bi bi-house me-2"></i> Về Trang Chủ Web
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <%- body %>
+            </main>
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

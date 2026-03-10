@@ -1,0 +1,110 @@
+[
+  {
+    "perfumeName": "Chanel No.5",
+    "uri": "img/chanel5.jpg",
+    "price": 150,
+    "concentration": "EDP",
+    "description": "Classic floral fragrance",
+    "ingredients": "Rose, Jasmine, Vanilla",
+    "volume": 100,
+    "targetAudience": "female",
+    "brand": { "$oid": "665000000000000000000001" },
+    "comments": [
+      {
+        "rating": 3,
+        "content": "Amazing scent",
+        "author": { "$oid": "665000000000000000000011" }
+      }
+    ]
+  },
+  {
+    "perfumeName": "Chanel Coco Mademoiselle",
+    "uri": "img/coco.jpg",
+    "price": 140,
+    "concentration": "EDP",
+    "description": "Elegant feminine perfume",
+    "ingredients": "Orange, Rose, Patchouli",
+    "volume": 100,
+    "targetAudience": "female",
+    "brand": { "$oid": "665000000000000000000001" },
+    "comments": [
+      {
+        "rating": 3,
+        "content": "Very elegant",
+        "author": { "$oid": "665000000000000000000012" }
+      }
+    ]
+  },
+  {
+    "perfumeName": "Dior Sauvage",
+    "uri": "img/sauvage.jpg",
+    "price": 130,
+    "concentration": "EDT",
+    "description": "Fresh spicy fragrance",
+    "ingredients": "Bergamot, Pepper",
+    "volume": 100,
+    "targetAudience": "male",
+    "brand": { "$oid": "665000000000000000000002" },
+    "comments": [
+      {
+        "rating": 3,
+        "content": "My favorite",
+        "author": { "$oid": "665000000000000000000012" }
+      }
+    ]
+  },
+  {
+    "perfumeName": "Tom Ford Black Orchid",
+    "uri": "img/blackorchid.jpg",
+    "price": 180,
+    "concentration": "EDP",
+    "description": "Luxurious dark floral",
+    "ingredients": "Black orchid, Vanilla",
+    "volume": 90,
+    "targetAudience": "unisex",
+    "brand": { "$oid": "665000000000000000000003" },
+    "comments": [
+      {
+        "rating": 2,
+        "content": "Unique smell",
+        "author": { "$oid": "665000000000000000000011" }
+      }
+    ]
+  },
+  {
+    "perfumeName": "Gucci Bloom",
+    "uri": "img/bloom.jpg",
+    "price": 130,
+    "concentration": "EDP",
+    "description": "Rich white floral",
+    "ingredients": "Jasmine, Tuberose",
+    "volume": 100,
+    "targetAudience": "female",
+    "brand": { "$oid": "665000000000000000000004" },
+    "comments": [
+      {
+        "rating": 3,
+        "content": "Lovely floral",
+        "author": { "$oid": "665000000000000000000013" }
+      }
+    ]
+  },
+  {
+    "perfumeName": "YSL Libre",
+    "uri": "img/libre.jpg",
+    "price": 135,
+    "concentration": "EDP",
+    "description": "Modern feminine fragrance",
+    "ingredients": "Lavender, Orange blossom",
+    "volume": 90,
+    "targetAudience": "female",
+    "brand": { "$oid": "665000000000000000000005" },
+    "comments": [
+      {
+        "rating": 3,
+        "content": "Modern and bold",
+        "author": { "$oid": "665000000000000000000014" }
+      }
+    ]
+  }
+]

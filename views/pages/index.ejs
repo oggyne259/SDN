@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Danh sách Nước Hoa</h1>
+  
+  <form action="/" method="GET" class="row mb-4 bg-light p-3 rounded shadow-sm">
+    <div class="col-md-5 mb-2">
+      <input type="text" name="perfumeName" class="form-control" placeholder="Nhập tên nước hoa cần tìm..." value="<%= searchName %>">
+    </div>
+    <div class="col-md-5 mb-2">
+      <select name="brand" class="form-select">
+        <option value="">-- Tất cả Thương Hiệu --</option>
+        <% brands.forEach(function(b) { %>
+          <option value="<%= b._id %>" <%= selectedBrand == b._id.toString() ? 'selected' : '' %>>
+            <%= b.brandName %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Tìm & Lọc</button>
+    </div>
+  </form>
+
+  <div class="row">
+    <% if (perfumes && perfumes.length > 0) { %>
+      <% perfumes.forEach(function(perfume) { %>
+        <div class="col-md-4 mb-5">
+          <div class="card h-100 perfume-card">
+            <div class="img-wrapper">
+              <img src="<%= perfume.uri %>" alt="<%= perfume.perfumeName %>">
+            </div>
+            
+            <div class="card-body text-center d-flex flex-column justify-content-between p-4">
+              <div>
+                <div class="brand-subtitle"><%= perfume.brand ? perfume.brand.brandName : 'N/A' %></div>
+                <h5 class="card-title perfume-title"><%= perfume.perfumeName %></h5>
+                
+                <div class="mb-4 d-flex justify-content-center gap-2">
+                  <span class="badge badge-lux"><%= perfume.targetAudience %></span>
+                  
+                  <% if(perfume.concentration === 'Extrait') { %>
+                    <span class="badge bg-danger border-0 text-dark fw-bold" style="background-color: var(--lux-primary) !important; padding: 0.35em 0.65em; font-size: 0.7rem; letter-spacing: 1px;">EXTRAIT</span>
+                  <% } else { %>
+                    <span class="badge badge-lux"><%= perfume.concentration %></span>
+                  <% } %>
+                </div>
+              </div>
+              
+              <div>
+                <div class="price-tag mb-4">$<%= perfume.price %></div>
+                <a href="/perfumes/<%= perfume._id %>" class="btn btn-outline-primary w-100 py-2">XEM CHI TIẾT</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <div class="col-12 text-center mt-5"><p class="text-muted">Không tìm thấy sản phẩm nào.</p></div>
+    <% } %>
+  </div> <% if (totalPages > 1) { %>
+    <nav aria-label="Page navigation" class="mt-5 mb-5">
+      <ul class="pagination justify-content-center">
+        
+        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+          <a class="page-link" href="/?page=<%= currentPage - 1 %>&perfumeName=<%= searchName %>&brand=<%= selectedBrand %>">
+            &laquo; Trước
+          </a>
+        </li>
+
+        <% for(let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+            <a class="page-link" href="/?page=<%= i %>&perfumeName=<%= searchName %>&brand=<%= selectedBrand %>">
+              <%= i %>
+            </a>
+          </li>
+        <% } %>
+
+        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+          <a class="page-link" href="/?page=<%= currentPage + 1 %>&perfumeName=<%= searchName %>&brand=<%= selectedBrand %>">
+            Sau &raquo;
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+  <% } %>
+
+</div>

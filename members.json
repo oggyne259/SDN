@@ -1,0 +1,38 @@
+[
+  {
+    "_id": { "$oid": "665000000000000000000011" },
+    "email": "alice@gmail.com",
+    "password": "123456",
+    "name": "Alice Nguyen",
+    "YOB": 1998,
+    "gender": false,
+    "isAdmin": false
+  },
+  {
+    "_id": { "$oid": "665000000000000000000012" },
+    "email": "bob@gmail.com",
+    "password": "123456",
+    "name": "Bob Tran",
+    "YOB": 1996,
+    "gender": true,
+    "isAdmin": false
+  },
+  {
+    "_id": { "$oid": "665000000000000000000013" },
+    "email": "charlie@gmail.com",
+    "password": "123456",
+    "name": "Charlie Pham",
+    "YOB": 2000,
+    "gender": true,
+    "isAdmin": false
+  },
+  {
+    "_id": { "$oid": "665000000000000000000014" },
+    "email": "david@gmail.com",
+    "password": "123456",
+    "name": "David Le",
+    "YOB": 1995,
+    "gender": true,
+    "isAdmin": false
+  }
+]
