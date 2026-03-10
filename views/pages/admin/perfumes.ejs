@@ -31,7 +31,7 @@
           <th>Hình ảnh</th>
           <th>Tên sản phẩm</th>
           <th>Thương hiệu</th>
-          <th>Giá ($)</th>
+          <th>Giá (vnd)</th>
           <th>Nồng độ</th>
           <th>Đối tượng</th>
           <th>Thao tác</th>
@@ -44,7 +44,7 @@
               <td><img src="<%= perfume.uri %>" alt="IMG" class="item-thumb"></td>
               <td class="fw-semibold"><%= perfume.perfumeName %></td>
               <td><%= perfume.brand ? perfume.brand.brandName : 'Lỗi Data' %></td>
-              <td class="fw-semibold text-warning"><%= perfume.price %></td>
+              <td class="price-value"><%= Number(perfume.price || 0).toLocaleString('vi-VN') %> đ</td>
               <td>
                 <span class="badge badge-soft <%= perfume.concentration === 'Extrait' ? 'badge-concentration-extrait' : '' %>">
                   <%= perfume.concentration %>

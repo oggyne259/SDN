@@ -198,3 +198,54 @@ h5,
     height: 230px;
   }
 }
+
+.app-footer {
+  border-top: 1px solid rgba(31, 42, 61, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  color: var(--muted);
+}
+
+
+.app-footer {
+  border-top: 1px solid rgba(31, 42, 61, 0.1);
+  background: linear-gradient(180deg, #ffffff, #f4f7fc);
+  color: var(--muted);
+}
+
+.footer-title {
+  color: var(--text);
+  font-size: 1.2rem;
+}
+
+.footer-heading {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.footer-note {
+  color: #7a889f;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  border-top: 1px dashed rgba(31, 42, 61, 0.18);
+}
+
+.login-error {
+  border: 1px solid rgba(220, 53, 69, 0.25);
+  background: #fff1f3;
+  color: #a31024;
+}

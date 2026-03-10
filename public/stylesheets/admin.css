@@ -155,3 +155,35 @@ h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Playfair Display', serif; }
   width: 58px; height: 58px; border-radius: 10px; object-fit: cover;
   border: 1px solid var(--ad-border);
 }
+
+.price-value {
+  font-weight: 700;
+  color: #b7791f;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+
+.app-footer {
+  margin-top: 24px;
+  border-top: 1px solid var(--ad-border);
+  background: linear-gradient(180deg, #ffffff, #f6f8fc);
+  color: var(--ad-muted);
+}
+
+.app-footer .footer-title,
+.app-footer .footer-heading {
+  color: var(--ad-text);
+}
+
+.app-footer .footer-links a {
+  color: var(--ad-muted);
+  text-decoration: none;
+}
+
+.app-footer .footer-links a:hover {
+  color: var(--ad-primary);
+}
+
+.app-footer .footer-bottom {
+  border-top: 1px dashed rgba(32, 44, 63, 0.2);
+}

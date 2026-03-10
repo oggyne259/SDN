@@ -9,6 +9,7 @@ module.exports = {
       title: "Login",
       error: null,
       success: null,
+      email: "",
     });
   },
 
@@ -18,18 +19,22 @@ module.exports = {
 
       const member = await db.Member.findOne({ email });
       if (!member) {
-        return res.status(404).json({
-          success: false,
-          message: "Email không tồn tại trong hệ thống"
+        return res.status(401).render("auth/login", {
+          title: "Login",
+          error: "Tài khoản hoặc mật khẩu không chính xác.",
+          success: null,
+          email,
         });
       }
 
       const isPasswordValid = await bcryptjs.compare(password, member.password);
 
       if (!isPasswordValid) {
-        return res.status(401).json({
-          success: false,
-          message: "Mật khẩu không chính xác"
+        return res.status(401).render("auth/login", {
+          title: "Login",
+          error: "Tài khoản hoặc mật khẩu không chính xác.",
+          success: null,
+          email,
         });
       }
 
@@ -49,9 +54,11 @@ module.exports = {
       return res.redirect("/"); // Chuyển hướng về trang chủ sau khi đăng nhập thành công
 
     } catch (error) {
-      return res.status(500).json({
-        success: false,
-        message: "Lỗi hệ thống: " + error.message
+      return res.status(500).render("auth/login", {
+        title: "Login",
+        error: "Đăng nhập thất bại, vui lòng thử lại sau.",
+        success: null,
+        email: req.body.email || "",
       });
     }
   },
