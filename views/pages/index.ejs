@@ -36,11 +36,11 @@
               <small class="text-muted"><%= perfume.brand ? perfume.brand.brandName : 'N/A' %></small>
               <h5 class="mt-2"><%= perfume.perfumeName %></h5>
               <div class="my-3 d-flex gap-2 flex-wrap">
-                <span class="badge-lux"><%= perfume.targetAudience %></span>
-                <span class="badge-lux"><%= perfume.concentration %></span>
+                <span class="badge-lux badge-gender-<%= perfume.targetAudience %>"><%= perfume.targetAudience %></span>
+                <span class="badge-lux <%= perfume.concentration === 'Extrait' ? 'badge-concentration-extrait' : '' %>"><%= perfume.concentration %></span>
               </div>
               <div class="mt-auto d-flex justify-content-between align-items-center">
-                <span class="product-price">$<%= perfume.price %></span>
+                <span class="product-price"><%= Number(perfume.price || 0).toLocaleString('vi-VN') %> ₫</span>
                 <a href="/perfumes/<%= perfume._id %>" class="btn btn-outline-primary btn-sm">Chi tiết</a>
               </div>
             </div>
@@ -66,8 +66,8 @@
           </li>
         <% } %>
         <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
-          <a class="page-link" href="/?page=<%= currentPage + 1 %>&perfumeName=<%= searchName %>&brand=<%= selectedBrand %>">&raquo;</a>          
-        </li> 
+          <a class="page-link" href="/?page=<%= currentPage + 1 %>&perfumeName=<%= searchName %>&brand=<%= selectedBrand %>">&raquo;</a>
+        </li>
       </ul>
     </nav>
   <% } %>

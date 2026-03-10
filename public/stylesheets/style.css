@@ -1,9 +1,9 @@
 :root {
-  --bg: #0f1115;
-  --bg-soft: #171a21;
-  --surface: #202633;
-  --text: #eef2ff;
-  --muted: #a5afc2;
+  --bg: #f4f7fc;
+  --bg-soft: #eef3fb;
+  --surface: #ffffff;
+  --text: #1f2a3d;
+  --muted: #5d6b82;
   --primary: #d8b46a;
   --primary-deep: #bf994d;
   --danger: #ff7f7f;
@@ -17,7 +17,7 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #1c212c 0%, var(--bg) 45%);
+  background: radial-gradient(circle at top, #ffffff 0%, var(--bg) 60%);
   color: var(--text);
 }
 
@@ -31,9 +31,9 @@ h5,
 }
 
 .app-navbar {
-  background: rgba(15, 17, 21, 0.86);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(31, 42, 61, 0.08);
 }
 .navbar-brand {
   color: var(--primary) !important;
@@ -47,15 +47,28 @@ h5,
   color: var(--primary) !important;
 }
 
+.app-navbar .navbar-toggler {
+  border-color: rgba(31, 42, 61, 0.25);
+}
+
+.app-navbar .navbar-toggler-icon {
+  filter: invert(22%) sepia(15%) saturate(998%) hue-rotate(180deg) brightness(92%) contrast(91%);
+}
+
+.app-navbar .btn-outline-light {
+  color: #2c3e55;
+  border-color: rgba(44, 62, 85, 0.35);
+}
+
+.app-navbar .btn-outline-light:hover {
+  background: #edf3ff;
+}
+
 .hero-card,
 .card,
 .panel {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0.01)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background: linear-gradient(180deg, #ffffff, #f8faff);
+  border: 1px solid rgba(31, 42, 61, 0.1) !important;
   border-radius: var(--radius);
   color: var(--text);
 }
@@ -66,14 +79,14 @@ h5,
 
 .form-control,
 .form-select {
-  background-color: #11151f;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background-color: #ffffff;
+  border: 1px solid rgba(31, 42, 61, 0.18);
   color: var(--text);
   border-radius: 10px;
 }
 .form-control:focus,
 .form-select:focus {
-  background-color: #11151f;
+  background-color: #ffffff;
   color: var(--text);
   border-color: var(--primary);
   box-shadow: 0 0 0 0.2rem rgba(216, 180, 106, 0.2);
@@ -97,15 +110,42 @@ h5,
   border-radius: 10px;
 }
 .btn-outline-primary:hover {
-  background: rgba(216, 180, 106, 0.12);
+  background: rgba(216, 180, 106, 0.18);
 }
 
 .badge-lux {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--muted);
+  border: 1px solid rgba(31, 42, 61, 0.22);
+  color: #324057;
+  background: #f3f7ff;
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badge-gender-male {
+  background: #e3f0ff;
+  border-color: #6aa6f8;
+  color: #0f4c9b;
+}
+
+.badge-gender-female {
+  background: #ffe7f1;
+  border-color: #f28ab5;
+  color: #a02c66;
+}
+
+.badge-gender-unisex {
+  background: #e9fbe7;
+  border-color: #86cf7f;
+  color: #2d6b29;
+}
+
+.badge-concentration-extrait {
+  background: linear-gradient(135deg, #ffe6a1, #f8c655);
+  border-color: #d59a24;
+  color: #5b3a00;
+  box-shadow: 0 0 0 2px rgba(248, 198, 85, 0.25);
 }
 
 .product-card {
@@ -132,8 +172,8 @@ h5,
 }
 
 .pagination .page-link {
-  background: #131a24;
-  border-color: rgba(255, 255, 255, 0.14);
+  background: #ffffff;
+  border-color: rgba(31, 42, 61, 0.15);
   color: var(--text);
 }
 .pagination .active .page-link {
@@ -149,8 +189,8 @@ h5,
 }
 
 .comment-card {
-  background: #171d29;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(31, 42, 61, 0.1);
   border-radius: 12px;
 }
 @media (max-width: 767px) {

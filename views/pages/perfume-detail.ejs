@@ -10,14 +10,14 @@
         <p class="text-muted mb-2"><%= perfume.brand ? perfume.brand.brandName : 'N/A' %></p>
         <h2 class="mb-3"><%= perfume.perfumeName %></h2>
         <div class="d-flex gap-2 flex-wrap mb-3">
-          <span class="badge-lux"><%= perfume.targetAudience %></span>
-          <span class="badge-lux"><%= perfume.concentration %></span>
+          <span class="badge-lux badge-gender-<%= perfume.targetAudience %>"><%= perfume.targetAudience %></span>
+          <span class="badge-lux <%= perfume.concentration === 'Extrait' ? 'badge-concentration-extrait' : '' %>"><%= perfume.concentration %></span>
           <span class="badge-lux"><%= perfume.volume %> ml</span>
         </div>
         <p class="text-muted"><%= perfume.description %></p>
         <p class="mb-4"><strong>Thành phần:</strong> <%= perfume.ingredients %></p>
         <div class="d-flex align-items-center justify-content-between mt-auto">
-          <span class="product-price">$<%= perfume.price %></span>
+          <span class="product-price"><%= Number(perfume.price || 0).toLocaleString('vi-VN') %> ₫</span>
           <a href="/" class="btn btn-outline-primary">Quay lại danh sách</a>
         </div>
       </div>

@@ -45,8 +45,14 @@
               <td class="fw-semibold"><%= perfume.perfumeName %></td>
               <td><%= perfume.brand ? perfume.brand.brandName : 'Lỗi Data' %></td>
               <td class="fw-semibold text-warning"><%= perfume.price %></td>
-              <td><span class="badge badge-soft"><%= perfume.concentration %></span></td>
-              <td><%= perfume.targetAudience %></td>
+              <td>
+                <span class="badge badge-soft <%= perfume.concentration === 'Extrait' ? 'badge-concentration-extrait' : '' %>">
+                  <%= perfume.concentration %>
+                </span>
+              </td>
+              <td>
+                <span class="badge badge-gender-<%= perfume.targetAudience %>"><%= perfume.targetAudience %></span>
+              </td>
               <td>
                 <button class="btn btn-sm btn-outline-admin me-1" data-bs-toggle="modal" data-bs-target="#editPerfumeModal<%= perfume._id %>">Sửa</button>
                 <form action="/admin/perfumes/delete/<%= perfume._id %>" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa nước hoa này?');">
@@ -82,7 +88,7 @@
                           <input type="text" name="uri" class="form-control" value="<%= perfume.uri %>" required>
                         </div>
                         <div class="col-md-3">
-                          <label>Giá tiền ($)</label>
+                          <label>Giá tiền (VND)</label>
                           <input type="number" name="price" class="form-control" value="<%= perfume.price %>" required>
                         </div>
                         <div class="col-md-3">
